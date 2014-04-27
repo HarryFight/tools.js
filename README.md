@@ -1,73 +1,91 @@
 tools.js
 ========
 
-a simple tool that packing some common useful function
-大标题
-===================================
-  大标题一般显示工程名,类似html的\<h1\><br />
-  你只要在标题下面跟上=====即可
+这是一个简单封装了一些常用函数的简易库，主要是事件、运动
 
-  
-中标题
+1、兼容性
 -----------------------------------
-  中标题一般显示重点项,类似html的\<h2\><br />
-  你只要在标题下面输入------即可
-  
-### 小标题
-  小标题类似html的\<h3\><br />
-  小标题的格式如下 ### 小标题<br />
-  注意#和标题字符中间要有空格
+  IE6+、Chrome、Firefox、Safari、Opera等浏览器
+2、使用说明
+-----------------------------------
+### addEvent(target,eventName,fn)， removeEvent(target,eventName,fn)
+    /************************************
+    * 添加、取消事件绑定
+    * @param target : 要绑定事件的元素
+    * @param eventName : 事件名称。不加 "on". 如 : "click" 而不是 "onclick".
+    * @param fn : 事件处理函数
+    */
+    
+### removeAll(target,eventName)
+    /************************************
+     * 取消对象所有事件函数
+     * @param target : 要取消绑定事件的元素
+     * @param eventName : 事件名称。不加 "on". 如 : "click" 而不是 "onclick".
+     */
 
-### 注意!!!下面所有语法的提示我都先用小标题提醒了!!! 
+### live(target,delegate,eventName,fn)
+    /************************************
+     * 事件代理
+     * @param target : 要绑定事件的元素
+     * @param delegate : 被代理元素
+     * @param eventName : 事件名称。不加 "on". 如 : "click" 而不是 "onclick".
+     * @param fn : 事件处理函数
+     */
 
-### 单行文本框
-    这是一个单行的文本框,只要两个Tab再输入文字即可
-        
-### 多行文本框  
-    这是一个有多行的文本框
-    你可以写入代码等,每行文字只要输入两个Tab再输入文字即可
-    这里你可以输入一段代码
+### focus(target,fn)，blur(target,fn)，mouseenter(target,fn)，mouseout(target,fn)
+    /************************************
+     *  focus、blur事件的冒泡实现，mouseenter、mouseleave函数所有浏览器兼容
+     * @param target
+     * @param fn
+     */
+### constant(target,json,time,callback)，decelerate(target,json,scale,callback)，accelerate(target,json,scale,callback)，dap(target,json,scale,callback)
+    /************************************
+     * 匀速、减速、加速、弹性
+     * @param target : 对象
+     * @param json : 目标值的json对象
+     * @param time/scale :  运动时间,默认为1000ms/运动频率,默认20
+     * @param callback :回调函数
+     */
+### 几个简单的工具函数
+    /************************************
+     * 布局转化
+     * @param target : 要转化的对象
+     * @param child : 子元素的数组
+     * @return 保存子元素位置的数组
+     */
+    function toLayout(parent,child)
+    /************************************
+     * 碰撞检测
+     * @param obj1
+     * @param obj2
+     * @returns {boolean}
+     */
+    function hitTest(obj1,obj2)
+    /************************************
+     * 对象的类型判断
+     * @param obj : 要判断的对象
+     * @param type :　类型
+     */
+    function is(obj,type)
+    
+    /************************************
+     * 转化为普通数组
+     * @param obj : 要转化的对象
+     */
+    function toArray(obj)
+    /************************************
+     * 兼容的forEach函数
+     * @param arr : 数组
+     * @param fn : 函数，接受3个参数（item,index,arr）
+     */
+    function each(arr,fn)
+    /************************************
+     * 产生一组完全不等随机数的函数
+     * @param Max : 产生随机数最大的范围
+     * @param len : 随机数个数
+     * 返回数组
+     */
+    function getRandom(Max,len)
 
-### 比如我们可以在多行文本框里输入一段代码,来一个Java版本的HelloWorld吧
-    public class HelloWorld {
 
-      /**
-      * @param args
-   */
-   public static void main(String[] args) {
-   System.out.println("HelloWorld!");
 
-   }
-
-    }
-### 链接
-1.[点击这里你可以链接到www.google.com](http://www.google.com)<br />
-2.[点击这里我你可以链接到我的博客](http://guoyunsky.iteye.com)<br />
-
-###只是显示图片
-![github](http://github.com/unicorn.png "github")
-
-###想点击某个图片进入一个网页,比如我想点击github的icorn然后再进入www.github.com
-[![image]](http://www.github.com/)
-[image]: http://github.com/github.png "github"
-
-### 文字被些字符包围
-> 文字被些字符包围
->
-> 只要再文字前面加上>空格即可
->
-> 如果你要换行的话,新起一行,输入>空格即可,后面不接文字
-> 但> 只能放在行首才有效
-
-### 文字被些字符包围,多重包围
-> 文字被些字符包围开始
->
-> > 只要再文字前面加上>空格即可
->
->  > > 如果你要换行的话,新起一行,输入>空格即可,后面不接文字
->
-> > > > 但> 只能放在行首才有效
-
-### 特殊字符处理
-有一些特殊字符如<,#等,只要在特殊字符前面加上转义字符\即可<br />
-你想换行的话其实可以直接用html标签\<br /\>
