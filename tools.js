@@ -511,3 +511,28 @@ function getRandom(Max,len){
     }
     return temp;
 }
+/**
+ * JSON.parse的兼容实现
+ * @param data
+ * @constructor
+ */
+function JSONParse(data){
+    //此正则匹配 \],:{}空白符
+    var rvalidchars = /^[\],:{}\s]*$/,
+        rvalidescape = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,
+        rvalidtokens = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+):?/g,
+        rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g;
+
+    if(typeof data !== "string" || !data){
+        return null;
+    }
+    data = self.trim(data);
+    if(window.JSON && window.JSON.parse){
+        return window.JSON.parse(data);
+    }
+    if( rvalidchars.test( data.replace(rvalidescape,"@")
+                               .replace(rvalidtokens,"]")
+                               .replace(rvalidbraces,""))){
+        return(new Function("return" + data))();
+    }
+}
