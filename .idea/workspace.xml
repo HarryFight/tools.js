@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07750382-0cb5-4fc8-88ba-9e0b70c1a02a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.html" afterPath="$PROJECT_DIR$/test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools.js" afterPath="$PROJECT_DIR$/tools.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="tools.js.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/tools.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.6463022" vertical-offset="11981" max-vertical-offset="12914">
-              <caret line="572" column="28" selection-start-line="572" selection-start-column="28" selection-end-line="572" selection-end-column="28" />
+              <caret line="572" column="0" selection-start-line="572" selection-start-column="0" selection-end-line="573" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -265,7 +264,7 @@
     <entry file="file://$PROJECT_DIR$/tools.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6463022" vertical-offset="11981" max-vertical-offset="12914">
-          <caret line="572" column="28" selection-start-line="572" selection-start-column="28" selection-end-line="572" selection-end-column="28" />
+          <caret line="572" column="0" selection-start-line="572" selection-start-column="0" selection-end-line="573" selection-end-column="0" />
           <folding />
         </state>
       </provider>
