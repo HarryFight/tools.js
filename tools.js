@@ -1,16 +1,21 @@
-/**************************************
+/**
  * Created with JetBrains WebStorm.
  * User: xaingyi
  * time: 2014 - 04 - 26
  */
 
-/************************************
+(function(window){
+    var tool = {};
+    //提供接口
+    window.Tool = tool;
+
+/**
 * 添加、取消事件绑定
 * @param target : 要绑定事件的元素
 * @param eventName : 事件名称。不加 "on". 如 : "click" 而不是 "onclick".
 * @param fn : 事件处理函数
 */
-function addEvent(target,eventName,fn){
+tool.addEvent = function(target,eventName,fn){
     //将函数名或者整个匿名函数体转化为字符串，解决匿名函数无法解绑的问题
     var fnStr = fn.toString().replace(/\s+/g,"");
     //事件分类保存
@@ -62,7 +67,7 @@ function addEvent(target,eventName,fn){
             }
     }
 }
-function  removeEvent(target,eventName,fn){
+tool.removeEvent = function(target,eventName,fn){
     var fnStr =  fn.toString().replace(/\s+/g,""),
         handler;
     //判断是否有此事件分类，在没有的情况下返回函数
@@ -80,12 +85,12 @@ function  removeEvent(target,eventName,fn){
         target["on"+eventName] = null;
     }
 }
-/************************************
+/**
  * 取消对象所有事件函数
  * @param target : 要取消绑定事件的元素
  * @param eventName : 事件名称。不加 "on". 如 : "click" 而不是 "onclick".
  */
-function removeAll(target,eventName){
+tool.removeAll = function(target,eventName){
     //判断是否有此事件分类
     if(target[eventName+"event"]){
         var all = target[eventName+"event"];
@@ -97,14 +102,14 @@ function removeAll(target,eventName){
         }
     }
 }
-/************************************
+/**
  * 事件代理
  * @param target : 要绑定事件的元素
  * @param delegate : 被代理元素
  * @param eventName : 事件名称。不加 "on". 如 : "click" 而不是 "onclick".
  * @param fn : 事件处理函数
  */
-function live(target,delegate,eventName,fn){
+tool.live = function(target,delegate,eventName,fn){
     addEvent(target,eventName,handler);
 
     function handler(ev){
@@ -120,31 +125,31 @@ function live(target,delegate,eventName,fn){
         }
     }
 }
-/************************************
+/**
  *  focus、blur事件的冒泡实现
  * @param target
  * @param fn
  */
-function focus(target,fn){
+tool.focus = function(target,fn){
     if(target.addEventListener){
         target.addEventListener("focus",fn,true);
     }else if(target.attachEvent){
         target.attachEvent("onfocusin",fn);
     }
 }
-function blur(target,fn){
+tool.blur = function(target,fn){
     if(target.addEventListener){
         target.addEventListener("blur",fn,true);
     }else if(target.attachEvent){
         target.attachEvent("onfocusout",fn);
     }
 }
-/************************************
+/**
  * mouseenter、mouseleave函数所有浏览器兼容
  * @param targer
  * @param fn
  */
-function mouseenter(target,fn){
+tool.mouseenter = function(target,fn){
     if(target.addEventListener){
         addEvent(target,"mouseover",handler);
     }else if(target.attachEvent){
@@ -158,7 +163,7 @@ function mouseenter(target,fn){
         }
     }
 }
-function mouseout(target,fn){
+tool.mouseout = function(target,fn){
     if(target.addEventListener){
         addEvent(target,"mouseout",handler);
     }else if(target.attachEvent){
@@ -180,7 +185,7 @@ function mouseout(target,fn){
  * @param time : 运动时间,默认为1000ms
  * @param callback :回调函数
  */
-function constant(target,json,time,callback){
+tool.constant = function(target,json,time,callback){
     //浏览器刷新频率
     var timeScale = 1000/60,
     //运动总共会刷新的次数,count可以由传入时间设置
@@ -242,7 +247,7 @@ function constant(target,json,time,callback){
  * @param scale: 运动频率,默认20
  * @param callback :回调函数
  */
-function decelerate(target,json,scale,callback){
+tool.decelerate = function(target,json,scale,callback){
     //浏览器刷新频率
     var timeScale = 1000/60,
     //运动总共会刷新的次数,count可以由传入时间设置
@@ -288,7 +293,7 @@ function decelerate(target,json,scale,callback){
  * @param scale: 运动频率,默认20
  * @param callback :回调函数
  */
-function accelerate(target,json,scale,callback){
+tool.accelerate = function(target,json,scale,callback){
     var timeScale = 1000/60,
         scale = scale || 20,
         begin,speed;
@@ -345,7 +350,7 @@ function accelerate(target,json,scale,callback){
  * @param scale: 运动频率,默认20
  * @param callback :回调函数
  */
-function dap(target,json,scale,callback){
+tool.dap = function(target,json,scale,callback){
     var timeScale = 1000/60,
         scale = scale || 20;
 
@@ -391,7 +396,7 @@ function dap(target,json,scale,callback){
  * @param child : 子元素的数组
  * @return 保存子元素位置的数组
  */
-function toLayout(parent,child){
+tool.toLayout = function(parent,child){
     //保存元素的位置
     var pos =[],
         len = child.length;
@@ -423,7 +428,7 @@ function toLayout(parent,child){
  * @param obj2
  * @returns {boolean}
  */
-function hitTest(obj1,obj2){
+tool.hitTest = function(obj1,obj2){
     var t1 = obj1.offsetTop,
         t2 = obj2.offsetTop,
         h1 = obj1.offsetHeight,
@@ -444,7 +449,7 @@ function hitTest(obj1,obj2){
  * @param obj : 要判断的对象
  * @param type :　类型
  */
-function is(obj,type){
+tool.is = function(obj,type){
       return Object.prototype.toString.call(obj) == "[object"+type+"]";
 }
 
@@ -452,7 +457,7 @@ function is(obj,type){
  * 转化为普通数组
  * @param obj : 要转化的对象
  */
-function toArray(obj){
+tool.toArray = function(obj){
     var temp = [],
         len = obj.length;
 
@@ -472,7 +477,7 @@ function toArray(obj){
  * @param arr : 数组
  * @param fn : 函数，接受3个参数（item,index,arr）
  */
-function each(arr,fn){
+tool.each = function(arr,fn){
     if([].forEach){
         arr.forEach(fn);
     }else{
@@ -488,7 +493,7 @@ function each(arr,fn){
  * @param len : 随机数个数
  * 返回数组
  */
-function getRandom(Max,len){
+tool.getRandom = function(Max,len){
     var temp = [];
 
     while(temp.length<len){
@@ -516,7 +521,7 @@ function getRandom(Max,len){
  * @param data
  * @constructor
  */
-function JSONParse(data){
+tool.JSONParse = function(data){
     //此正则匹配 \],:{}空白符
     var rvalidchars = /^[\],:{}\s]*$/,
         rvalidescape = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,
@@ -536,3 +541,32 @@ function JSONParse(data){
         return(new Function("return" + data))();
     }
 }
+
+/**
+ * 类式继承
+ * @param subClass
+ * @param superClass
+ *
+ * -class Student-
+ *
+ * extend(Student,Person)
+ * function Student(name){
+ *    Student.superClass.constructor.call(this,name);
+ * }
+ */
+tool.extend = function(subClass,superClass){
+    var F = function(){};
+    F.prototype = superClass.prototype;
+    //将子类prototype指向一个空实例
+    subClass.prototype = new F();
+    subClass.prototype.constructor = subClass;
+    //给子类添加父类指向
+    subClass.superClass = superClass.prototype;
+    if(superClass.prototype.constructor == Object.prototype.constructor){
+        //修正父类constructor的指向
+        superClass.prototype.constructor = superClass;
+    }
+}
+
+    
+})(window);
