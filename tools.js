@@ -4,7 +4,20 @@
  * time: 2014 - 04 - 26
  */
 
-(function(window){
+;(function(name,definition){
+    var hasDefine = typeof define == "function",
+        hasModuleExports = typeof module != "undefined" && module.exports;
+
+    //当存在define、module函数时候，包装为模块
+    if(hasDefine){
+        define(name,definition);
+    }else if(hasModuleExports){
+        module.exports = definition();
+    }else{
+        this[name] = definition();
+    }
+
+}('tools',function(){
     var tool = {};
     //提供接口
     window.Tool = tool;
@@ -579,4 +592,4 @@
         F.prototype = new object();
         return new F;
     }
-})(window);
+});
